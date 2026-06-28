@@ -1,1 +1,38 @@
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_all.css') }}">
+    <title>Сегодняшние приемы — Медицинский помощник test</title>
+</head>
+<body>
+     <div class="header">
+            <h1>💊 МедТрекер</h1>
+            <p>Помогаю не пропустить прием лекарств. Будьте здоровы!</p>
+        </div> 
+    <div class="nav">
+            <a href="{{ url_for('index') }}">📅 Сегодня</a>
+            <a href="{{ url_for('medications') }}">💊 Лекарства</a>
+            <a href="{{ url_for('history') }}">📊 История</a>
+        </div>
+        
+        <div class="content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="flash {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
